@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لعبة الحساب الذكية للهواتف</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-h-screen flex flex-col p-4 md:p-8 max-w-6xl mx-auto">
+
+  <!-- Popup Welcome Modal -->
+  <div id="welcomeModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-[#0f111a] border-2 border-indigo-500/40 rounded-3xl p-6 max-w-lg w-full text-right shadow-2xl relative my-auto animate-fade-in text-slate-200">
+      
+      <div class="flex items-center justify-between border-b border-slate-800 pb-4 mb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 bg-indigo-600/20 border border-indigo-500/30 rounded-2xl flex items-center justify-center text-indigo-400 shrink-0">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+          </div>
+          <div>
+            <span class="text-[10px] font-black bg-indigo-500/20 text-indigo-300 px-2.5 py-0.5 rounded-full border border-indigo-500/30 inline-block mb-1">🌟 رسالة ترحيبية</span>
+            <h2 id="modalEstName" class="text-base sm:text-lg font-black text-white"></h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3.5 bg-indigo-500/10 border border-indigo-500/20 rounded-2xl text-xs text-slate-200 leading-relaxed mb-4" id="modalWelcomeMsg">
+      </div>
+
+      <div id="carouselSection" dir="ltr" class="mb-5 text-right">
+        <div class="flex items-center justify-between mb-2 px-1" dir="rtl">
+          <span class="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
+            <span>🖼️ معرض الصور للمؤسسة (اضغط للتكبير أو اسحب للجانب)</span>
+          </span>
+          <span id="photoCountBadge" class="text-[10px] bg-indigo-500/20 text-indigo-300 px-2.5 py-0.5 rounded-full border border-indigo-500/30 font-bold"></span>
+        </div>
+        <div id="carouselWrapper" class="overflow-x-auto scrollbar-none rounded-2xl border border-slate-800 bg-slate-900/90 p-2.5 relative shadow-inner cursor-grab active:cursor-grabbing touch-pan-x">
+          <div id="carouselTrack" class="carousel-track">
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-2.5 mb-6 text-xs">
+        <div id="modalAddrContainer" class="flex items-center gap-2.5 p-2.5 bg-slate-900/80 border border-slate-800 rounded-xl font-bold text-slate-200">
+          <svg class="w-4 h-4 text-rose-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          <span id="modalAddress"></span>
+        </div>
+
+        <a id="modalPhoneLink" href="#" target="_blank" class="flex items-center justify-between p-2.5 bg-emerald-500/10 border border-emerald-500/20 rounded-xl font-bold text-emerald-400 hover:bg-emerald-500/20 transition-all">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            <span id="modalPhone"></span>
+          </div>
+          <span class="text-[10px] bg-emerald-500/20 px-2 py-0.5 rounded-md">اتصال / واتساب 💬</span>
+        </a>
+
+        <div class="grid grid-cols-3 gap-2">
+          <a id="modalFbLink" href="#" target="_blank" class="flex items-center justify-center gap-1.5 p-2 bg-blue-600/15 border border-blue-500/30 rounded-xl font-bold text-blue-400 hover:bg-blue-600/25 transition-all text-center">
+            <span>فيسبوك</span>
+          </a>
+          <a id="modalIgLink" href="#" target="_blank" class="flex items-center justify-center gap-1.5 p-2 bg-pink-600/15 border border-pink-500/30 rounded-xl font-bold text-pink-400 hover:bg-pink-600/25 transition-all text-center">
+            <span>إنستغرام</span>
+          </a>
+          <a id="modalTtLink" href="#" target="_blank" class="flex items-center justify-center gap-1.5 p-2 bg-teal-600/15 border border-teal-500/30 rounded-xl font-bold text-teal-400 hover:bg-teal-600/25 transition-all text-center">
+            <span>تيك توك</span>
+          </a>
+        </div>
+
+        <a id="modalMapsLink" href="#" target="_blank" class="flex items-center justify-between p-2.5 bg-sky-500/10 border border-sky-500/20 rounded-xl font-bold text-sky-400 hover:bg-sky-500/20 transition-all">
+          <div class="flex items-center gap-2">
+            <span>موقعنا على خرائط جوجل (Google Maps)</span>
+          </div>
+          <span class="text-[10px] bg-sky-500/20 px-2 py-0.5 rounded-md">فتح الخريطة 🗺️</span>
+        </a>
+      </div>
+
+      <button onclick="closeWelcomeModal()" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-black text-sm rounded-2xl shadow-xl shadow-indigo-500/20 cursor-pointer flex items-center justify-center gap-2 transition-all transform hover:scale-[1.01]">
+        <span>ابدأ اللعبة الآن 🚀</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Interactive Lightbox Modal -->
+  <div id="lightboxModal" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 hidden flex-col items-center justify-between p-4 sm:p-6 transition-opacity duration-300 opacity-0">
+    <div class="w-full max-w-4xl flex items-center justify-between text-white z-20 py-2">
+      <span id="lightboxIndex" class="text-xs font-mono font-bold bg-slate-800/90 text-indigo-300 px-3.5 py-1.5 rounded-full border border-slate-700 shadow-lg">1 / 1</span>
+      <button onclick="closeLightbox()" class="p-2 rounded-full bg-slate-800/90 text-white hover:bg-slate-700 cursor-pointer border border-slate-700 transition-all shadow-lg" title="إغلاق">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div id="lightboxStage" class="relative w-full max-w-4xl flex-1 flex items-center justify-center my-auto overflow-hidden p-2">
+      <button onclick="prevPhoto()" class="absolute right-2 sm:right-6 z-30 p-3 rounded-full bg-slate-900/80 hover:bg-indigo-600 text-white border border-slate-700 transition-all shadow-2xl cursor-pointer" title="الصورة السابقة">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </button>
+
+      <div id="lightbox3dWrapper" class="relative w-full max-w-2xl h-[65vh] flex items-center justify-center preserve-3d photo-3d-card">
+        <img id="lightboxImg" src="" alt="صورة مكبرة" class="max-w-full max-h-full object-contain rounded-2xl shadow-2xl border-2 border-indigo-500/30" />
+      </div>
+
+      <button onclick="nextPhoto()" class="absolute left-2 sm:left-6 z-30 p-3 rounded-full bg-slate-900/80 hover:bg-indigo-600 text-white border border-slate-700 transition-all shadow-2xl cursor-pointer" title="الصورة التالية">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+    </div>
+
+    <div class="text-center text-slate-300 text-xs font-bold py-2 bg-slate-900/90 px-4 rounded-full border border-slate-800 my-2 shadow-lg">
+      👈 اسحب بإصبعك يميناً أو يساراً للتنقل بين الصور 👉
+    </div>
+  </div>
+
+  <header class="w-full flex flex-col md:flex-row justify-between items-center gap-4 mb-6 bento-card border-custom">
+    <div>
+      <h1 class="text-2xl font-black text-title">لعبة العمليات الحسابية الذكية 📱</h1>
+    </div>
+    <div class="flex flex-wrap justify-center items-center gap-2">
+      <button onclick="openWelcomeModal()" id="estBtn" class="px-3.5 py-2 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 text-xs font-bold rounded-xl transition-all cursor-pointer">🏫 بيانات المؤسسة</button>
+      <button onclick="toggleTheme()" id="themeBtn" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-bold rounded-xl transition-all cursor-pointer">☀️ وضع النهار</button>
+      <button onclick="toggleMusic()" id="musicBtn" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-bold rounded-xl transition-all cursor-pointer">🎵 تشغيل الموسيقى</button>
+      <button onclick="changeTrack()" id="trackBtn" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-bold rounded-xl transition-all cursor-pointer">🔁 لحن: ١</button>
+      <button onclick="toggleSound()" id="soundBtn" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-100 text-xs font-bold rounded-xl transition-all cursor-pointer">🔊 المؤثرات: تشغيل</button>
+    </div>
+  </header>
+
+  <div class="max-w-3xl mx-auto w-full">
+    <main class="bento-card border-custom min-h-[500px] flex flex-col justify-center text-center relative overflow-hidden">
+      <div class="absolute inset-0 bg-[radial-gradient(#1e243a_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none"></div>
+      <div id="stage" class="relative z-10 w-full p-2"></div>
+    </main>
+  </div>
+
+  <footer class="mt-8 text-center text-[10px] text-slate-500 font-mono border-t border-custom pt-4">
+    لعبة العمليات الحسابية الذكية للهواتف والكمبيوتر
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
