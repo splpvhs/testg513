@@ -1,0 +1,27 @@
+/* Stylesheet for GitHub Web Package */
+body { font-family: 'Cairo', sans-serif; background-color: #070709; color: #e2e8f0; transition: background-color 0.3s, color 0.3s; }
+body.light-mode { background-color: #f8fafc; color: #0f172a; }
+.bento-card { background: #0f111a; border: 1px solid #1e293b; border-radius: 1.5rem; padding: 1.25rem; transition: background 0.3s, border-color 0.3s, box-shadow 0.3s; }
+body.light-mode .bento-card { background: #ffffff !important; border-color: #e2e8f0 !important; color: #0f172a !important; box-shadow: 0 4px 20px -2px rgba(0,0,0,0.05); }
+body.light-mode #welcomeModal > div { background-color: #ffffff !important; border-color: #cbd5e1 !important; color: #0f172a !important; }
+body.light-mode #welcomeModal h2 { color: #0f172a !important; }
+body.light-mode #modalWelcomeMsg { background-color: #f1f5f9 !important; border-color: #e2e8f0 !important; color: #1e293b !important; }
+body.light-mode #modalAddrContainer, body.light-mode #carouselWrapper { background-color: #f8fafc !important; border-color: #e2e8f0 !important; color: #1e293b !important; }
+.text-title { color: #ffffff; }
+body.light-mode .text-title { color: #0f172a !important; }
+.text-desc { color: #94a3b8; }
+body.light-mode .text-desc { color: #475569 !important; }
+.inner-bg { background-color: #141824; }
+body.light-mode .inner-bg { background-color: #f1f5f9 !important; border-color: #e2e8f0 !important; }
+.border-custom { border-color: #1e293b; }
+body.light-mode .border-custom { border-color: #e2e8f0 !important; }
+.animate-bounce-short { animation: bounce 1s infinite; }
+@keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+/* Horizontal Photo Carousel Styles */
+.carousel-track { display: flex; direction: ltr !important; gap: 0.75rem; width: max-content; animation: autoScrollTrack 22s linear infinite; }
+.carousel-track:hover, .carousel-track:active { animation-play-state: paused; }
+@keyframes autoScrollTrack { 0% { transform: translateX(0); } 100% { transform: translateX(-33.333333%); } }
+.perspective-1000 { perspective: 1000px; }
+.preserve-3d { transform-style: preserve-3d; }
+.photo-3d-card { transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.35s ease; }
